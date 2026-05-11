@@ -14,7 +14,7 @@ export const agent = async (chatId: string, text: string) => {
     `${process.env.AGENT_API}/chat`,
     {
       message: text,
-      threadId,
+      ...(savedThread && { threadId }),
     },
     {
       headers: {
@@ -33,24 +33,3 @@ export const agent = async (chatId: string, text: string) => {
 
   return response.data;
 };
-
-// import axios from "axios";
-
-// export const agent = async (chatId: string, text: string) => {
-//   const payload: any = {
-//     message: text,
-//   };
-
-//   if (savedThread) {
-//     payload.threadId = savedThread.threadId;
-//   }
-
-//   const response = await axios.post(`${process.env.AGENT_API}/chat`, payload, {
-//     headers: {
-//       Authorization: `Bearer ${process.env.AGENT_API_KEY}`,
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   return response.data;
-// };
